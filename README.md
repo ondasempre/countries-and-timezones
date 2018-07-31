@@ -4,10 +4,11 @@
 
 This is a minimalistic library to work with countries and timezones data.
 
-## Install
+## Run
 
 ```
-npm install --save countries-and-timezones
+cd countries-and-timezones
+node init.js
 ```
 
 ## Data models
@@ -226,7 +227,3 @@ Prints:
 */
 
 ```
-
-## License
-
-MIT
