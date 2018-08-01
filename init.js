@@ -1,10 +1,52 @@
-var countriesAndTimezones = require('./src/index.js');
 
+var countriesAndTimezones = require('./src/index.js');
+var momentTimezone = require('./moment-timezone/moment-timezone.js');
+var moment = require('./node_modules/moment/moment.js');
+
+
+/**
+ * Time Sales 
+ */
 var json = {
-    "Italy" : "07:00:00",
-    "France" : "03:00:00",
-    "UK" : "03:40:00"
+    "Italy": "07:00:00",
+    "France": "03:00:00",
+    "UK": "03:40:00",
+    "USA": "14:00:00",
+    "Mexico": "10:30:00",
+    "Canada": "16:00:00",
+    "Hong Kong": "21:00:00",
+    "Taiwan": "21:30:00",
+    "Macau": "21:15:00",
+    "Malaysia": "19:45:00",
+    "Singapore": "21:45:00",
+    "Korea": "20:15:00",
+    "Thailand": "20:30:00",
+    "Australia": "19:30:00",
+    "China": "21:45:00",
+    "UAE": "03:15:00",
+    "KSA": "04:00:00",
+    "Kuwait": "03:15:00",
+    "India": "02:55:00",
+    "Turkey": "02:30:00",
+    "Bahrain": "03:15:00",
+    "Switzerland": "02:00:00",
+    "Qatar": "02:45:00",
+    "Germany": "02:45:00",
+    "Czec Rep.": "02:30:00",
+    "Brasile": "10:30:00",
+    "Russia": "01:30:00",
+    "Austria": "01:30:00",
+    "Danimarca": "02:15:00",
+    "Netherland": "01:30:26",
+    "Japan": "21:15:00"
 }
+var time = new Date(Date.now())
+var localTimeMKT = json.Italy.split(':');
+var localTime = new Date(time.getFullYear(), time.getMonth(), time.getDate(), time.getHours()+8, 0, 0); // Data locale
+
+var currentDate = new Date(time.getFullYear(), time.getMonth(), time.getDate(),localTimeMKT[0], localTimeMKT[1], localTimeMKT[2]); // Data di acquisto 
+
+//console.log( "Current Date: " + currentDate )
 
 // Print all Countries
 var countries = countriesAndTimezones.getAllCountries();
@@ -54,10 +96,17 @@ function addOffset(data, utcOffset) {
     return startTime.toTimeString();
 }
 
-var currentDate = new Date("2018-07-31T16:32:00.000Z");
+var country = 'HK' // Residenza
+var countryTimezone = countriesAndTimezones.getTimezonesForCountry(country);
+/*
+console.log("Local Time: " + new Date(localTime));
+console.log("Current Date: " + currentDate);
 
-console.log(currentDate)
-console.log(todayAndTimezonePlannedValue(timezonePlanned))
-console.log(countriesAndTimezones.getTimezonesForCountry('IT')[0].utcOffset)
-console.log( addOffset(todayAndTimezonePlannedValue(timezonePlanned), 1)  )
+var currentDate = currentDate.setHours( currentDate.getHours() + countryTimezone[0].utcOffset/60 )
 
+console.log("Gap: " + (new Date(currentDate).getTime() - new Date(localTime).getTime()) )
+
+*/
+moment.tz.add('America/Los_Angeles|PST PDT|80 70|0101|1Lzm0 1zb0 Op0');
+var Los_Angeles = moment.tz("2018-08-01 23:00", "America/Los_Angeles");
+console.log(Los_Angeles.format())
