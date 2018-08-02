@@ -2,10 +2,10 @@
 var countriesAndTimezones = require('./src/index.js');
 var momentTimezone = require('./moment-timezone/moment-timezone.js');
 var moment = require('./node_modules/moment/moment.js');
-
+moment.tz.load(require('./moment-timezone/data/packed/latest.json'));
 
 /**
- * Time Sales 
+ * Time Sales from Italian country.
  */
 var json = {
     "Italy": "07:00:00",
@@ -40,10 +40,10 @@ var json = {
     "Netherland": "01:30:26",
     "Japan": "21:15:00"
 }
+
 var time = new Date(Date.now())
 var localTimeMKT = json.Italy.split(':');
 var localTime = new Date(time.getFullYear(), time.getMonth(), time.getDate(), time.getHours()+8, 0, 0); // Data locale
-
 var currentDate = new Date(time.getFullYear(), time.getMonth(), time.getDate(),localTimeMKT[0], localTimeMKT[1], localTimeMKT[2]); // Data di acquisto 
 
 //console.log( "Current Date: " + currentDate )
@@ -78,7 +78,6 @@ function todayAndTimezonePlannedValue(timezonePlanned) {
     return datetime;
 }
 
-
 /**
  * Return the difference between two date.
  * @param {*} date1 
@@ -107,6 +106,23 @@ var currentDate = currentDate.setHours( currentDate.getHours() + countryTimezone
 console.log("Gap: " + (new Date(currentDate).getTime() - new Date(localTime).getTime()) )
 
 */
-moment.tz.add('America/Los_Angeles|PST PDT|80 70|0101|1Lzm0 1zb0 Op0');
-var Los_Angeles = moment.tz("2018-08-01 23:00", "America/Los_Angeles");
-console.log(Los_Angeles.format())
+//moment.tz.add('America/Los_Angeles|PST PDT|80 70|0101|1Lzm0 1zb0 Op0');
+//moment.tz.add("Europe/Amsterdam|AMT NST +0120 +0020 CEST CET|-j.w -1j.w -1k -k -20 -10|010101010101010101010101010101010101010101012323234545454545454545454545454545454545454545454545454545454545454545454545454545454545454545454545454545454545454545454545454545454545|-2aFcj.w 11b0 1iP0 11A0 1io0 1cM0 1fA0 1a00 1fA0 1a00 1fA0 1a00 1co0 1io0 1yo0 Pc0 1a00 1fA0 1Bc0 Mo0 1tc0 Uo0 1tA0 U00 1uo0 W00 1s00 VA0 1so0 Vc0 1sM0 UM0 1wo0 Rc0 1u00 Wo0 1rA0 W00 1s00 VA0 1sM0 UM0 1w00 fV0 BCX.w 1tA0 U00 1u00 Wo0 1sm0 601k WM0 1fA0 1cM0 1cM0 1cM0 16M0 1gMM0 1a00 1fA0 1cM0 1cM0 1cM0 1fA0 1a00 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1fA0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1fA0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1fA0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00|16e5")
+
+var Los_Angeles = moment.tz(time, "America/Los_Angeles");
+var Rome = moment.tz(time, "Europe/Amsterdam");
+var London = moment.tz(time, "Europe/London");
+var Hong_Kong = moment.tz(time, "Asia/Hong_Kong");
+
+var Rome_data_receive = moment.tz(currentDate, "Europe/Amsterdam");
+
+console.log("Los_Angeles: " + Los_Angeles.format())
+console.log("Rome: " + Rome.format())
+console.log("London: " + London.format())
+console.log("Hong_Kong: " + Hong_Kong.format())
+
+console.log('- - - - - - - - - - - - - - - - - - - - -')
+
+console.log("Rome_data_receive: " + new Date(Rome_data_receive) )
+
+console.log("Send Mail IT->Los_Angeles: " )
