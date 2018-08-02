@@ -41,17 +41,16 @@ var json = {
     "Japan": "21:15:00"
 }
 
+// Get Current Date
 var time = new Date(Date.now())
 var localTimeMKT = json.Italy.split(':');
-var localTime = new Date(time.getFullYear(), time.getMonth(), time.getDate(), time.getHours()+8, 0, 0); // Data locale
-var currentDate = new Date(time.getFullYear(), time.getMonth(), time.getDate(),localTimeMKT[0], localTimeMKT[1], localTimeMKT[2]); // Data di acquisto 
-
-//console.log( "Current Date: " + currentDate )
+var currentDate = new Date(time.getFullYear(), time.getMonth(), time.getDate(),localTimeMKT[0], localTimeMKT[1], localTimeMKT[2]);
 
 // Print all Countries
 var countries = countriesAndTimezones.getAllCountries();
 var timezones = countriesAndTimezones.getAllTimezones();
 
+// Get Timezones For Country
 var itTimezone = countriesAndTimezones.getTimezonesForCountry('IT');
 var timezonePlanned = countriesAndTimezones.getTimezonePlanned(json.Italy);
 
@@ -95,26 +94,15 @@ function addOffset(data, utcOffset) {
     return startTime.toTimeString();
 }
 
-var country = 'HK' // Residenza
-var countryTimezone = countriesAndTimezones.getTimezonesForCountry(country);
-/*
-console.log("Local Time: " + new Date(localTime));
-console.log("Current Date: " + currentDate);
-
-var currentDate = currentDate.setHours( currentDate.getHours() + countryTimezone[0].utcOffset/60 )
-
-console.log("Gap: " + (new Date(currentDate).getTime() - new Date(localTime).getTime()) )
-
-*/
-//moment.tz.add('America/Los_Angeles|PST PDT|80 70|0101|1Lzm0 1zb0 Op0');
-//moment.tz.add("Europe/Amsterdam|AMT NST +0120 +0020 CEST CET|-j.w -1j.w -1k -k -20 -10|010101010101010101010101010101010101010101012323234545454545454545454545454545454545454545454545454545454545454545454545454545454545454545454545454545454545454545454545454545454545|-2aFcj.w 11b0 1iP0 11A0 1io0 1cM0 1fA0 1a00 1fA0 1a00 1fA0 1a00 1co0 1io0 1yo0 Pc0 1a00 1fA0 1Bc0 Mo0 1tc0 Uo0 1tA0 U00 1uo0 W00 1s00 VA0 1so0 Vc0 1sM0 UM0 1wo0 Rc0 1u00 Wo0 1rA0 W00 1s00 VA0 1sM0 UM0 1w00 fV0 BCX.w 1tA0 U00 1u00 Wo0 1sm0 601k WM0 1fA0 1cM0 1cM0 1cM0 16M0 1gMM0 1a00 1fA0 1cM0 1cM0 1cM0 1fA0 1a00 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1fA0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1fA0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1fA0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00|16e5")
-
+// Get Date from zones
 var Los_Angeles = moment.tz(time, "America/Los_Angeles");
 var Rome = moment.tz(time, "Europe/Amsterdam");
 var London = moment.tz(time, "Europe/London");
 var Hong_Kong = moment.tz(time, "Asia/Hong_Kong");
 
+// Data Receive
 var Rome_data_receive = moment.tz(currentDate, "Europe/Amsterdam");
+
 console.log()
 console.log('- - - - - - - - - - REAL COUNTRY TIMEZONE - - - - - - - - - - -')
 console.log("Los_Angeles: " + Los_Angeles.format())
@@ -143,9 +131,19 @@ m.format()
 console.log("DATA+3(9:00): "+m.format())
 console.log("DIFF: "+ moment.duration(now.diff(m)).asHours())
 
+/**
+ * Math.sign(3);     //  1
+ * Math.sign(-3);    // -1
+ * Math.sign('-3');  // -1
+ * Math.sign(0);     //  0
+ * Math.sign(-0);    // -0
+ * Math.sign(NaN);   // NaN
+ * Math.sign('foo'); // NaN
+ * Math.sign();      // NaN
+ */
 if ( Math.sign( moment.duration( now.diff(m) ).asHours() ) == '-1') {
     console.log( "INVIA OGGI ALLE ORE (Europe/Rome)"+ moment.tz(m, "Europe/Rome").format()) 
-    console.log( "INVIA OGGI ALLE ORE (Local)"+ m.format()) 
+    console.log( "                    (Local)      "+ m.format()) 
 } else {
     console.log( "INVIA DOMANI" ) 
 }
