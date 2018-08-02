@@ -115,14 +115,39 @@ var London = moment.tz(time, "Europe/London");
 var Hong_Kong = moment.tz(time, "Asia/Hong_Kong");
 
 var Rome_data_receive = moment.tz(currentDate, "Europe/Amsterdam");
-
+console.log()
+console.log('- - - - - - - - - - REAL COUNTRY TIMEZONE - - - - - - - - - - -')
 console.log("Los_Angeles: " + Los_Angeles.format())
 console.log("Rome: " + Rome.format())
 console.log("London: " + London.format())
 console.log("Hong_Kong: " + Hong_Kong.format())
-
-console.log('- - - - - - - - - - - - - - - - - - - - -')
-
+console.log()
+console.log('- - - - - - - - - - ADD +3 DAYS - - - - - - - - - - - - - - - -')
+console.log("Los_Angeles: " + Los_Angeles.add(3, 'days').format())
+console.log("Rome: " + Rome.add(3, 'days').format())
+console.log("London: " + London.add(3, 'days').format())
+console.log("Hong_Kong: " + Hong_Kong.add(3, 'days').format())
+console.log()
+console.log('- - - - - - - - - - DATA RECEIVED - - - - - - - - - - - - - - - -')
 console.log("Rome_data_receive: " + new Date(Rome_data_receive) )
 
-console.log("Send Mail IT->Los_Angeles: " )
+console.log('- - - - - - - - - - SEND MSG - - - - - - - - - - - - - - - -')
+
+var now = moment.tz(Los_Angeles.format(), "America/Los_Angeles"); //todays date
+console.log("DATA      +3: "+now.format())
+
+var m = moment(now.format()).utcOffset(-7);
+m.set({hour:9,minute:0})
+m.toISOString()
+m.format()
+console.log("DATA+3(9:00): "+m.format())
+console.log("DIFF: "+ moment.duration(now.diff(m)).asHours())
+
+if ( Math.sign( moment.duration( now.diff(m) ).asHours() ) == '-1') {
+    console.log( "INVIA OGGI ALLE ORE (Europe/Rome)"+ moment.tz(m, "Europe/Rome").format()) 
+    console.log( "INVIA OGGI ALLE ORE (Local)"+ m.format()) 
+} else {
+    console.log( "INVIA DOMANI" ) 
+}
+
+console.log(  ) 
